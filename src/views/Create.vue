@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col s6 offset-s3">
+        <div class="col s8 offset-s2">
             <h1>Create task</h1>
 
             <form @submit.prevent="submitHandler">
@@ -17,7 +17,12 @@
 
                 <div class="input-field">
                     <i class="material-icons prefix">mode_edit</i>
-                    <textarea id="description" maxlength="2048" v-model="description" class="materialize-textarea"></textarea>
+                    <textarea
+                        id="description"
+                        maxlength="2048"
+                        v-model="description"
+                        class="materialize-textarea"
+                    ></textarea>
                     <label for="description">Description</label>
                     <span
                         :class="{ full: description.length === 2048}"
@@ -25,7 +30,7 @@
                         style="float: right; font-size: 12px;"
                     >{{ description.length }}/2048</span>
                 </div>
-                
+
                 <div class="row">
                     <div class="col s6">
                         <div class="input-field">
@@ -33,7 +38,6 @@
                             <input type="text" ref="datepicker" />
                         </div>
                     </div>
-
                 </div>
 
                 <button class="btn" type="submit">Create Task</button>
@@ -58,7 +62,7 @@ export default {
     mounted() {
         this.chipsEl = M.Chips.init(this.$refs.chips, {
             placeholder: "Task tags",
-            limit: 10
+            limit: 10,
         });
 
         this.dateEl = M.Datepicker.init(this.$refs.datepicker, {

@@ -4,17 +4,20 @@
         <div class="container">
             <router-view></router-view>
         </div>
+        <action-button></action-button>
     </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar'
+import Navbar from "./components/Navbar";
+import ActionButton from "./components/ActionButton";
 
 export default {
     components: {
-        Navbar
-    } 
-}
+        Navbar,
+        ActionButton,
+    },
+};
 </script>
 
 <style lang="scss">

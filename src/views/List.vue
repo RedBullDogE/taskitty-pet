@@ -4,15 +4,13 @@
 
         <div class="row">
             <div class="valign-wrapper col s1 offset-s6">
-                <button 
-                    v-if="filter" 
-                    class="btn btn-small filter-button" 
+                <button
+                    v-if="filter"
+                    class="btn btn-small filter-button"
                     @click="filter = null"
-                >
-                    Clear Filter
-                </button>
+                >Clear Filter</button>
             </div>
-            
+
             <div class="input-field col s3">
                 <select ref="select" v-model="filter">
                     <option value disabled>Choose filter</option>
@@ -23,7 +21,6 @@
                 <label>Status Filter</label>
             </div>
         </div>
-        
 
         <table v-if="tasks.length">
             <thead>
@@ -34,6 +31,7 @@
                     <th>Description</th>
                     <th>Status</th>
                     <th>Open</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -52,37 +50,52 @@
                             :to="`/task/${task.id}`"
                         >Open</router-link>
                     </td>
+                    <td>
+                        <button 
+                            @click="taskToClose = task"
+                            data-target="modal" 
+                            class="btn-flat modal-trigger">
+                            <i class="material-icons red-text">close</i>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
         <p v-else>No tasks</p>
+
+        <Modal :task="taskToClose"/>
     </div>
 </template>
 
 <script>
+import Modal from "../components/Modal";
+
 export default {
     data() {
         return {
             filter: null,
-        }
+            taskToClose: null
+        };
+    },
+    components: {
+        Modal,
     },
     computed: {
         tasks() {
             return this.$store.getters.tasks;
         },
         displayTasks() {
-            return this.tasks.filter(t => {
+            return this.tasks.filter((t) => {
                 if (!this.filter) {
                     return true;
                 }
                 return t.status === this.filter;
-            })
-
-        }
+            });
+        },
     },
     mounted() {
         M.FormSelect.init(this.$refs.select);
-    }
+    },
 };
 </script>
 
