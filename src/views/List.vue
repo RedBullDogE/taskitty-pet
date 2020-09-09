@@ -12,7 +12,7 @@
             </div>
 
             <div class="input-field col s3">
-                <select ref="select" v-model="filter">
+                <select ref="select" v-model="filter" :disabled="!tasks.length">
                     <option value disabled>Choose filter</option>
                     <option value="active">Active</option>
                     <option value="outdated">Outdated</option>
@@ -61,7 +61,10 @@
                 </tr>
             </tbody>
         </table>
-        <p v-else>No tasks</p>
+        <div v-else class="center">
+            <p>Still no tasks here</p>
+            <p>Want to <router-link to=/create>add</router-link>?</p>
+        </div>
 
         <Modal :task="taskToClose"/>
     </div>
