@@ -16,13 +16,13 @@
                         tag="li" 
                         to="/" 
                         active-class="active"
+                        exact
                     >
                         <a href="#">Tasks</a>
                     </router-link>
                     <router-link 
                         tag="li" 
                         to="/create" 
-                        exact 
                         active-class="active"
                     >
                         <a href="#">Create</a>
