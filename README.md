@@ -1,4 +1,4 @@
-# task-app-interview
+# TasKitty project
 
 ## Project setup
 ```
