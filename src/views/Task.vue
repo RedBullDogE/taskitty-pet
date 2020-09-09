@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div v-if="task" class="col s6 offset-s3">
-            <h1>{{ task.title }}</h1>
+            <h3>{{ task.title }}</h3>
 
             <form @submit.prevent="submitHandler">
                 <div class="input-field">
@@ -95,11 +95,11 @@ export default {
                 description: this.description,
                 date: this.dateEl.date
             });
-            this.$router.push("/list");
+            this.$router.push({ name: 'list' });
         },
         completeTask() {
             this.$store.dispatch('completeTask', this.task.id);
-            this.$router.push('/list');
+            this.$router.push({ name: 'list' });
         }
     },
 };

@@ -93,7 +93,7 @@ export default {
             };
 
             this.$store.dispatch("createTask", task);
-            this.$router.push("/list");
+            this.$router.push({ name: 'list' });
         },
     },
 };
