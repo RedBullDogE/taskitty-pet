@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div v-if="task" class="col s6 offset-s3">
+        <div v-if="task" class="col s8 offset-s2">
             <h3>{{ task.title }}</h3>
 
             <form @submit.prevent="submitHandler">
@@ -11,11 +11,12 @@
 
                 <div class="input-field">
                     <i class="material-icons prefix">mode_edit</i>
-                    <textarea 
+                    <textarea
                         style="min-height: 150px"
-                        id="description" 
-                        v-model="description" 
-                        class="materialize-textarea"></textarea>
+                        id="description"
+                        v-model="description"
+                        class="materialize-textarea"
+                    ></textarea>
                     <label for="description">Description</label>
                     <span
                         class="character-counter"
@@ -23,17 +24,23 @@
                     >{{ description.length }}/2048</span>
                 </div>
 
-                <div class="input-field">
-                    <i class="material-icons prefix">access_time</i>
-                    <input type="text" ref="datepicker" />
+                <div class="row">
+                    <div class="col s4">
+                        <div class="input-field">
+                            <i class="material-icons prefix">date_range</i>
+                            <input type="text" ref="datepicker" />
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="input-field">
+                            <i class="material-icons prefix">access_time</i>
+                            <input type="text" ref="timepicker" />
+                        </div>
+                    </div>
                 </div>
 
                 <div v-if="task.status !== 'completed'">
-                    <button 
-                        class="btn" 
-                        type="submit"
-                        style="margin-right: 1rem"
-                    >Edit</button>
+                    <button class="btn" type="submit" style="margin-right: 1rem">Edit</button>
                     <button class="btn blue" type="button" @click="completeTask">Complete Task</button>
                 </div>
             </form>
@@ -51,19 +58,20 @@ export default {
     },
     data() {
         return {
-            description: '',
+            description: "",
             chipsEl: null,
             dateEl: null,
+            timeEl: null
         };
     },
     mounted() {
         this.chipsEl = M.Chips.init(this.$refs.chips, {
             placeholder: "Task tags",
             secondaryPlaceholder: "new tag",
-            data: this.task.tags
+            data: this.task.tags,
         });
 
-        this.description = this.task.description
+        this.description = this.task.description;
 
         this.dateEl = M.Datepicker.init(this.$refs.datepicker, {
             format: "dd.mm.yyyy",
@@ -71,7 +79,14 @@ export default {
             setDefaultDate: true,
         });
 
-        this.$refs.iconChips
+        this.timeEl = M.Timepicker.init(this.$refs.timepicker, {
+            twelveHour: false,
+            autoClose: true,
+            showClearBtn: true,
+            defaultTime: this.task.time,
+        })
+
+        this.$refs.iconChips;
 
         // Fix textarea and label imposition
         setTimeout(() => {
@@ -93,14 +108,15 @@ export default {
             this.$store.dispatch("updateTask", {
                 id: this.task.id,
                 description: this.description,
-                date: this.dateEl.date
+                date: this.dateEl.date,
+                time: this.timeEl.time
             });
-            this.$router.push({ name: 'list' });
+            this.$router.push({ name: "list" });
         },
         completeTask() {
-            this.$store.dispatch('completeTask', this.task.id);
-            this.$router.push({ name: 'list' });
-        }
+            this.$store.dispatch("completeTask", this.task.id);
+            this.$router.push({ name: "list" });
+        },
     },
 };
 </script>

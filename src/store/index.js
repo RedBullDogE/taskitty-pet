@@ -13,7 +13,7 @@ export default new Vuex.Store({
 
             localStorage.setItem('tasks', JSON.stringify(state.tasks));
         },
-        updateTask(state, { id, description, date}) {
+        updateTask(state, { id, description, date, time }) {
             const tasks = state.tasks.concat();
 
             const idx = tasks.findIndex(t => t.id === id);
@@ -21,7 +21,7 @@ export default new Vuex.Store({
 
             const status = new Date(date) > new Date() ? 'active' : 'outdated';
 
-            tasks[idx] = {...task, date, description, status};
+            tasks[idx] = {...task, date, description, status, time};
 
             state.tasks = tasks;
             localStorage.setItem('tasks', JSON.stringify(state.tasks));
