@@ -29,7 +29,12 @@ export default new Vuex.Store({
             const idx = tasks.findIndex(t => t.id === id);
             const task = tasks[idx];
 
-            const status = new Date(date) > new Date() ? 'active' : 'outdated';
+            let dateTime = new Date(date);
+            dateTime.setHours(23, 59);
+            
+            if (time) dateTime.setHours(...time.split(':'));
+
+            const status = dateTime > new Date() ? 'active' : 'outdated';
 
             tasks[idx] = {...task, date, description, status, time};
 
