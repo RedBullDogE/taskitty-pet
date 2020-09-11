@@ -38,7 +38,7 @@
                 <tr v-for="(task, idx) of displayTasks" :key="task.id">
                     <td>{{ idx + 1 }}</td>
                     <td>{{ task.title }}</td>
-                    <td>{{ new Date(task.date).toLocaleDateString('ru-RU') }} {{ task.time }}</td>
+                    <td>{{ new Date(task.date).toLocaleDateString('ru-RU') }} {{ task.time}}</td>
                     <td class="table-textarea">
                         <div class="text">{{ task.description }}</div>
                     </td>

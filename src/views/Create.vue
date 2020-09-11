@@ -63,7 +63,7 @@ export default {
             description: "",
             chipsEl: null,
             dateEl: null,
-            timeEl: null
+            timeEl: null,
         };
     },
     mounted() {
@@ -81,7 +81,7 @@ export default {
         this.timeEl = M.Timepicker.init(this.$refs.timepicker, {
             twelveHour: false,
             showClearBtn: true,
-            autoClose: true
+            autoClose: true,
         });
     },
     destroyed() {
@@ -100,18 +100,32 @@ export default {
     },
     methods: {
         submitHandler() {
-            const task = {
-                title: this.title,
-                description: this.description,
-                id: Date.now(),
-                status: "active",
-                tags: this.chipsEl.chipsData,
-                date: this.dateEl.date,
-                time: this.timeEl.time || null
-            };
+            let dateTime = new Date(this.dateEl.date.setHours(23, 59));
 
-            this.$store.dispatch("createTask", task);
-            this.$router.push({ name: "list" });
+            if (this.timeEl.time) {
+                dateTime = new Date(this.dateEl.date.setHours(...this.timeEl.time.split(':')));
+            }
+            
+            
+            if (dateTime < new Date()) {
+                M.toast({ 
+                    html: 'Outdated! Please specify right date and time',
+                    classes: 'red' });
+            } else {
+                const task = {
+                    title: this.title,
+                    description: this.description,
+                    id: Date.now(),
+                    status: "active",
+                    tags: this.chipsEl.chipsData,
+                    date: this.dateEl.date,
+                    time: this.timeEl.time || null,
+                };
+    
+                this.$store.dispatch("createTask", task);
+                this.$router.push({ name: "list" });
+            }
+            
         },
     },
 };
