@@ -5,7 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        tasks: JSON.parse(localStorage.getItem('tasks') || '[]')
+        tasks: JSON.parse(localStorage.getItem('tasks') || '[]').map(task => {
+            let date = new Date(task.date);
+            date.setHours(23, 59);
+            
+            if (task.time) date.setHours(...task.time.split(':'));
+            
+            if (date < new Date()) {
+                task.status = 'outdated';
+            }
+            return task;
+        })
     },
     mutations: {
         createTask(state, task) {
