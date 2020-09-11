@@ -59,17 +59,25 @@
                         >Open</router-link>
                     </td>
                     <td>
+<<<<<<< HEAD
                         <button
                             @click="taskToClose = task"
                             data-target="modal"
                             class="btn-flat modal-trigger"
                         >
+=======
+                        <button 
+                            @click="taskToClose = task"
+                            data-target="modal" 
+                            class="btn-flat modal-trigger">
+>>>>>>> 12e0933b7e173ee7eb9f0c0a940372d17acdfa28
                             <i class="material-icons red-text">close</i>
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
+<<<<<<< HEAD
         <div v-else class="center">
             <p>Still no tasks here</p>
             <p>
@@ -79,6 +87,11 @@
         </div>
 
         <Modal :task="taskToClose" />
+=======
+        <p v-else>No tasks</p>
+
+        <Modal :task="taskToClose"/>
+>>>>>>> 12e0933b7e173ee7eb9f0c0a940372d17acdfa28
     </div>
 </template>
 
@@ -89,7 +102,11 @@ export default {
     data() {
         return {
             filter: null,
+<<<<<<< HEAD
             taskToClose: null,
+=======
+            taskToClose: null
+>>>>>>> 12e0933b7e173ee7eb9f0c0a940372d17acdfa28
         };
     },
     components: {
