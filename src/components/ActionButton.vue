@@ -1,7 +1,7 @@
 <template>
     <div ref="actionButton" class="fixed-action-btn">
         <router-link 
-            class="waves-effect waves-light btn-floating btn-large red"
+            class="waves-effect waves-light btn-floating btn-large deep-purple"
             to="/create"
         >
             <i class="large material-icons">mode_edit</i>

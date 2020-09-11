@@ -42,7 +42,15 @@
                     <td class="table-textarea">
                         <div class="text">{{ task.description }}</div>
                     </td>
-                    <td>{{ task.status }}</td>
+                    <td>
+                        <span
+                            :class="{ 
+                                'green darken-1 white-text': task.status === 'completed',
+                                'red white-text': task.status === 'outdated',
+                            }"
+                            class="status-sign z-depth-1 center-align"
+                        >{{ task.status }}</span>
+                    </td>
                     <td>
                         <router-link
                             tag="button"
@@ -51,10 +59,11 @@
                         >Open</router-link>
                     </td>
                     <td>
-                        <button 
+                        <button
                             @click="taskToClose = task"
-                            data-target="modal" 
-                            class="btn-flat modal-trigger">
+                            data-target="modal"
+                            class="btn-flat modal-trigger"
+                        >
                             <i class="material-icons red-text">close</i>
                         </button>
                     </td>
@@ -63,10 +72,13 @@
         </table>
         <div v-else class="center">
             <p>Still no tasks here</p>
-            <p>Want to <router-link to=/create>add</router-link>?</p>
+            <p>
+                Want to
+                <router-link to="/create">add</router-link>?
+            </p>
         </div>
 
-        <Modal :task="taskToClose"/>
+        <Modal :task="taskToClose" />
     </div>
 </template>
 
@@ -77,7 +89,7 @@ export default {
     data() {
         return {
             filter: null,
-            taskToClose: null
+            taskToClose: null,
         };
     },
     components: {
@@ -115,5 +127,10 @@ export default {
 
 .filter-button {
     margin-top: 1.5rem;
+}
+
+.status-sign {
+    padding: 5px 10px;
+    border-radius: 10px;
 }
 </style>
