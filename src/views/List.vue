@@ -3,7 +3,7 @@
         <h1>List of Tasks</h1>
 
         <div class="row">
-            <div class="valign-wrapper col s1 offset-s6">
+            <div class="valign-wrapper col s2 offset-s6">
                 <button
                     v-if="filter"
                     class="btn btn-small filter-button"
@@ -29,7 +29,7 @@
                     <th>Title</th>
                     <th>Date</th>
                     <th>Description</th>
-                    <th>Status</th>
+                    <th class='center'>Status</th>
                     <th>Open</th>
                     <th></th>
                 </tr>
@@ -42,7 +42,7 @@
                     <td class="table-textarea">
                         <div class="text">{{ task.description }}</div>
                     </td>
-                    <td>
+                    <td class="center">
                         <span
                             :class="{ 
                                 'green darken-1 white-text': task.status === 'completed',
@@ -59,25 +59,17 @@
                         >Open</router-link>
                     </td>
                     <td>
-<<<<<<< HEAD
                         <button
                             @click="taskToClose = task"
                             data-target="modal"
                             class="btn-flat modal-trigger"
                         >
-=======
-                        <button 
-                            @click="taskToClose = task"
-                            data-target="modal" 
-                            class="btn-flat modal-trigger">
->>>>>>> 12e0933b7e173ee7eb9f0c0a940372d17acdfa28
                             <i class="material-icons red-text">close</i>
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-<<<<<<< HEAD
         <div v-else class="center">
             <p>Still no tasks here</p>
             <p>
@@ -87,11 +79,6 @@
         </div>
 
         <Modal :task="taskToClose" />
-=======
-        <p v-else>No tasks</p>
-
-        <Modal :task="taskToClose"/>
->>>>>>> 12e0933b7e173ee7eb9f0c0a940372d17acdfa28
     </div>
 </template>
 
@@ -102,11 +89,7 @@ export default {
     data() {
         return {
             filter: null,
-<<<<<<< HEAD
             taskToClose: null,
-=======
-            taskToClose: null
->>>>>>> 12e0933b7e173ee7eb9f0c0a940372d17acdfa28
         };
     },
     components: {
