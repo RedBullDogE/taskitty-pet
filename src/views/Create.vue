@@ -32,10 +32,16 @@
                 </div>
 
                 <div class="row">
-                    <div class="col s6">
+                    <div class="col s4">
+                        <div class="input-field">
+                            <i class="material-icons prefix">date_range</i>
+                            <input type="text" ref="datepicker" />
+                        </div>
+                    </div>
+                    <div class="col s4">
                         <div class="input-field">
                             <i class="material-icons prefix">access_time</i>
-                            <input type="text" ref="datepicker" />
+                            <input type="text" ref="timepicker" />
                         </div>
                     </div>
                 </div>
@@ -57,6 +63,7 @@ export default {
             description: "",
             chipsEl: null,
             dateEl: null,
+            timeEl: null
         };
     },
     mounted() {
@@ -70,6 +77,12 @@ export default {
             defaultDate: new Date(),
             setDefaultDate: true,
         });
+
+        this.timeEl = M.Timepicker.init(this.$refs.timepicker, {
+            twelveHour: false,
+            showClearBtn: true,
+            autoClose: true
+        });
     },
     destroyed() {
         // Memory Leak Solution
@@ -79,6 +92,10 @@ export default {
 
         if (this.chipsEl && this.chipsEl.destroy) {
             this.chipsEl.destroy();
+        }
+
+        if (this.timeEl && this.timeEl.destroy) {
+            this.timeEl.destroy();
         }
     },
     methods: {
@@ -90,10 +107,11 @@ export default {
                 status: "active",
                 tags: this.chipsEl.chipsData,
                 date: this.dateEl.date,
+                time: this.timeEl.time || null
             };
 
             this.$store.dispatch("createTask", task);
-            this.$router.push({ name: 'list' });
+            this.$router.push({ name: "list" });
         },
     },
 };
