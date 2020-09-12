@@ -12,7 +12,11 @@
             </div>
 
             <div class="input-field col s3">
-                <select ref="select" v-model="filter" :disabled="!tasks.length">
+                <select 
+                    ref="select"
+                    v-model="filter"
+                    :disabled="!tasks.length"
+                    @change="$store.dispatch('setPage', 1)">
                     <option value disabled>Choose filter</option>
                     <option value="active">Active</option>
                     <option value="outdated">Outdated</option>
