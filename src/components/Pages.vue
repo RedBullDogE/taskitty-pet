@@ -80,7 +80,7 @@
                 </ul>
             </div>
 
-            <div class="input-field col s3 offset-s2">
+            <div class="input-field col s2 offset-s3">
                 <select 
                     ref="select"
                     v-model="tasksPerPage"
