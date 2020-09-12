@@ -2,7 +2,7 @@
     <footer class="page-footer blue darken-1">
         <div class="container">
             <div class="row">
-                <div class="col l3 offset-l2 s12">
+                <div class="col l3 offset-l2 s11 offset-s1">
                     <h5 class="white-text">TasKitty</h5>
                     <p class="grey-text text-lighten-4">
                         Icons made by
@@ -14,7 +14,7 @@
                         >Freepik</a>
                     </p>
                     <p class="grey-text text-lighten-4">
-                        Based on project in
+                        Project based on
                         <a
                             href="https://www.youtube.com/watch?v=Ez5_CITkg24"
                             title="Freepik"
@@ -23,7 +23,7 @@
                         >this video</a>
                     </p>
                 </div>
-                <div class="col l3 offset-l3 s12">
+                <div class="col l3 offset-l3 s11 offset-s1">
                     <h5 class="white-text">Contacts</h5>
                     <ul>
                         <li>

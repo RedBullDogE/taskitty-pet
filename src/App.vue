@@ -29,13 +29,13 @@ export default {
 <style lang="scss">
 @import "~materialize-css/dist/css/materialize.min.css";
 
-body {
+#app {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-}
 
-main {
-    flex: 1 0 auto;
+    main {
+        flex: 1 0 auto;
+    }
 }
 </style>
