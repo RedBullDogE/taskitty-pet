@@ -1,5 +1,9 @@
 # TasKitty project
 
+Pet project based on [this video](https://www.youtube.com/watch?v=Ez5_CITkg24).
+
+Pretty Task Manager with really not much functionality. Written in VueJS with MaterializeCSS layout.
+
 ## Project setup
 ```
 npm install
@@ -19,6 +23,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
