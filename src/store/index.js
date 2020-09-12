@@ -6,11 +6,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         tasks: JSON.parse(localStorage.getItem('tasks') || '[]').map(task => {
+            if (task.status === 'completed') {
+                return task;
+            }
+
             let date = new Date(task.date);
             date.setHours(23, 59);
-            
+
             if (task.time) date.setHours(...task.time.split(':'));
-            
+
             if (date < new Date()) {
                 task.status = 'outdated';
             }
@@ -31,12 +35,12 @@ export default new Vuex.Store({
 
             let dateTime = new Date(date);
             dateTime.setHours(23, 59);
-            
+
             if (time) dateTime.setHours(...time.split(':'));
 
             const status = dateTime > new Date() ? 'active' : 'outdated';
 
-            tasks[idx] = {...task, date, description, status, time};
+            tasks[idx] = { ...task, date, description, status, time };
 
             state.tasks = tasks;
             localStorage.setItem('tasks', JSON.stringify(state.tasks));
