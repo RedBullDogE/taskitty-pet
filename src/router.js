@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Create from '../views/Create.vue'
+import Create from './views/Create.vue'
 
 Vue.use(VueRouter)
 
@@ -13,12 +13,12 @@ const routes = [
     {
         path: '/',
         name: 'list',
-        component: () => import('../views/List.vue'),
+        component: () => import('./views/List.vue'),
     },
     {
         path: '/task/:id',
         name: 'task',
-        component: () => import('../views/Task.vue')
+        component: () => import('./views/Task.vue')
     }
 ]
 
