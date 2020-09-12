@@ -1,34 +1,38 @@
 <template>
-    <div>
-        <h1>List of Tasks</h1>
+    <div class="center">
+        <h2>List of Tasks</h2>
 
-        <div class="row">
-            <div class="valign-wrapper col s2 offset-s6">
-                <button
-                    v-if="filter"
-                    class="btn btn-small filter-button"
-                    @click="filter = null"
-                >Clear Filter</button>
+        <template v-if="tasks.length">
+            <div class="row">
+                <div class="valign-wrapper col s2 offset-s6">
+                    <button
+                        v-if="filter"
+                        class="btn btn-small filter-button"
+                        @click="filter = null"
+                    >Clear Filter</button>
+                </div>
+
+                <div class="input-field col s3">
+                    <select
+                        ref="select"
+                        v-model="filter"
+                        :disabled="!tasks.length"
+                        @change="$store.dispatch('setPage', 1)"
+                    >
+                        <option value disabled>Choose filter</option>
+                        <option value="active">Active</option>
+                        <option value="outdated">Outdated</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <label>Status Filter</label>
+                </div>
             </div>
 
-            <div class="input-field col s3">
-                <select 
-                    ref="select"
-                    v-model="filter"
-                    :disabled="!tasks.length"
-                    @change="$store.dispatch('setPage', 1)">
-                    <option value disabled>Choose filter</option>
-                    <option value="active">Active</option>
-                    <option value="outdated">Outdated</option>
-                    <option value="completed">Completed</option>
-                </select>
-                <label>Status Filter</label>
-            </div>
-        </div>
+            <Pages :tasks="displayTasks" />
+        </template>
 
-        <Pages v-if="tasks.length" :tasks="displayTasks" />
-    
-        <div v-else class="center">
+        <div v-else class="center vertical-align">
+            <br />
             <p>Still no tasks here</p>
             <p>
                 Want to
@@ -48,7 +52,7 @@ export default {
         };
     },
     components: {
-        Pages
+        Pages,
     },
     computed: {
         tasks() {
