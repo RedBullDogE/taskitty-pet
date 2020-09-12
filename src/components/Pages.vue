@@ -49,31 +49,49 @@
             </tbody>
         </table>
 
-        <ul class="pagination center">
-            <li class="waves-effect" :class="{ disabled: currentPage == 1}" @click="prevPage">
-                <a>
-                    <i class="material-icons">chevron_left</i>
-                </a>
-            </li>
-            <li
-                :class="{ active: currentPage == idx }"
-                v-for="idx in numberOfPages"
-                :key="idx"
-                @click="setPage(idx)"
-                style="cursor: pointer"
-            >
-                <a>{{ idx }}</a>
-            </li>
-            <li
-                class="waves-effect"
-                :class="{ disabled: currentPage == numberOfPages}"
-                @click="nextPage"
-            >
-                <a>
-                    <i class="material-icons">chevron_right</i>
-                </a>
-            </li>
-        </ul>
+        <br>
+
+        <div class="row">
+            <div class="col s3 offset-s2">
+                <ul class="pagination">
+                    <li class="waves-effect" :class="{ disabled: currentPage == 1}" @click="prevPage">
+                        <a>
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                    </li>
+                    <li
+                        style="cursor: pointer"
+                        :class="{ 'active indigo accent-2': currentPage == idx }"
+                        v-for="idx in numberOfPages"
+                        :key="idx"
+                        @click="setPage(idx)"
+                    >
+                        <a>{{ idx }}</a>
+                    </li>
+                    <li
+                        class="waves-effect"
+                        :class="{ disabled: currentPage == numberOfPages}"
+                        @click="nextPage"
+                    >
+                        <a>
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="input-field col s3 offset-s2">
+                <select 
+                    ref="select"
+                    v-model="tasksPerPage"
+                    @change="$store.dispatch('setPage', 1)">
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+                <label>Tasks per page</label>
+            </div>
+        </div>
 
         <Modal :task="taskToClose" />
     </div>
@@ -120,6 +138,9 @@ export default {
             this.$store.dispatch('setPage', idx);
         }
     },
+    mounted() {
+        M.FormSelect.init(this.$refs.select);
+    }
 };
 </script>
 
