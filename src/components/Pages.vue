@@ -57,16 +57,16 @@
             </li>
             <li
                 :class="{ active: currentPage == idx }"
-                v-for="idx in pageNumber"
+                v-for="idx in numberOfPages"
                 :key="idx"
-                @click="currentPage = idx"
+                @click="setPage(idx)"
                 style="cursor: pointer"
             >
                 <a>{{ idx }}</a>
             </li>
             <li
                 class="waves-effect"
-                :class="{ disabled: currentPage == pageNumber}"
+                :class="{ disabled: currentPage == numberOfPages}"
                 @click="nextPage"
             >
                 <a>
@@ -86,7 +86,6 @@ export default {
     props: ["tasks"],
     data() {
         return {
-            currentPage: 1,
             tasksPerPage: 5,
             taskToClose: null,
         };
@@ -95,7 +94,10 @@ export default {
         Modal,
     },
     computed: {
-        pageNumber() {
+        currentPage() {
+            return this.$store.getters.currentPage;
+        },
+        numberOfPages() {
             return Math.ceil(this.tasks.length / this.tasksPerPage);
         },
         displayTasksOnPage() {
@@ -107,11 +109,16 @@ export default {
     },
     methods: {
         nextPage() {
-            if (this.currentPage != this.pageNumber) this.currentPage++;
+            if (this.currentPage != this.numberOfPages)
+                this.$store.dispatch('setPage', this.currentPage + 1);
         },
         prevPage() {
-            if (this.currentPage != 1) this.currentPage--;
+            if (this.currentPage != 1)
+                this.$store.dispatch('setPage', this.currentPage - 1);
         },
+        setPage(idx) {
+            this.$store.dispatch('setPage', idx);
+        }
     },
 };
 </script>

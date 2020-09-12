@@ -19,7 +19,8 @@ export default new Vuex.Store({
                 task.status = 'outdated';
             }
             return task;
-        })
+        }),
+        currentPage: 1
     },
     mutations: {
         createTask(state, task) {
@@ -54,6 +55,9 @@ export default new Vuex.Store({
             const idx = state.tasks.findIndex(t => t.id === id)
             state.tasks.splice(idx, 1);
             localStorage.setItem('tasks', JSON.stringify(state.tasks));
+        },
+        setPage(state, pageNumber) {
+            state.currentPage = pageNumber;
         }
     },
     actions: {
@@ -68,12 +72,16 @@ export default new Vuex.Store({
         },
         deleteTask({ commit }, id) {
             commit('deleteTask', id);
+        },
+        setPage({ commit }, pageNumber) {
+            commit('setPage', pageNumber);
         }
     },
     modules: {
     },
     getters: {
         tasks: s => s.tasks,
-        taskById: s => id => s.tasks.find(t => t.id === id)
+        taskById: s => id => s.tasks.find(t => t.id === id),
+        currentPage: s => s.currentPage
     }
 })
