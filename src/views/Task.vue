@@ -3,7 +3,7 @@
         <div v-if="task" class="col s8 offset-s2">
             <h3>{{ task.title }}</h3>
 
-            <form @submit.prevent="submitHandler">
+            <form @submit.prevent="submitHandler" v-if="task.status !== 'completed'">
                 <div class="input-field">
                     <i ref="iconChips" class="material-icons prefix">local_offer</i>
                     <div class="chips" ref="chips"></div>
@@ -39,11 +39,36 @@
                     </div>
                 </div>
 
-                <div v-if="task.status !== 'completed'">
+                <div>
                     <button class="btn" type="submit" style="margin-right: 1rem">Edit</button>
                     <button class="btn blue" type="button" @click="completeTask">Complete Task</button>
                 </div>
             </form>
+
+            <div v-else>
+                <div class="info-block">
+                    <i class="material-icons">local_offer</i>
+                    <div class="chip-list">
+                        <div class="chip" v-for="tags in task.tags" :key="tags.tag">{{ tags.tag }}</div>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <i class="material-icons prefix">mode_edit</i>
+
+                    <div class="description">{{ description }}</div>
+                </div>
+
+                <div class="info-block">
+                    <i class="material-icons">date_range</i>
+                    <div class="description">{{ task.date | formatDate }}</div>
+                </div>
+
+                <div class="info-block">
+                    <i class="material-icons">access_time</i>
+                    <div class="description">{{ task.time || '-' }}</div>
+                </div>
+            </div>
         </div>
         <p v-else>Task not found :(</p>
     </div>
@@ -61,7 +86,7 @@ export default {
             description: "",
             chipsEl: null,
             dateEl: null,
-            timeEl: null
+            timeEl: null,
         };
     },
     mounted() {
@@ -69,6 +94,7 @@ export default {
             placeholder: "Task tags",
             secondaryPlaceholder: "new tag",
             data: this.task.tags,
+            limit: 10,
         });
 
         this.description = this.task.description;
@@ -84,7 +110,7 @@ export default {
             autoClose: true,
             showClearBtn: true,
             defaultTime: this.task.time,
-        })
+        });
 
         this.$refs.iconChips;
 
@@ -102,6 +128,10 @@ export default {
         if (this.chipsEl && this.chipsEl.destroy) {
             this.chipsEl.destroy();
         }
+
+        if (this.timeEl && this.timeEl.destroy) {
+            this.timeEl.destroy();
+        }
     },
     methods: {
         submitHandler() {
@@ -109,7 +139,7 @@ export default {
                 id: this.task.id,
                 description: this.description,
                 date: this.dateEl.date,
-                time: this.timeEl.time
+                time: this.timeEl.time,
             });
             this.$router.push({ name: "list" });
         },
@@ -121,5 +151,27 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.info-block {
+    display: flex;
+    margin: 1rem 0;
+
+    .material-icons {
+        font-size: 2rem;
+        flex: 0 0 3rem;
+    }
+
+    .chip-list {
+        display: inline-block;
+    }
+
+    .description {
+        font-weight: normal;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        font-size: 16px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    }
+}
 </style>
